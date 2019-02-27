@@ -18,7 +18,7 @@ jobs:
       script: sbt docs/makeMicrosite
 
     - stage: deploy
-      if: (branch = master) AND (tag IS present)
+      if: (branch = master)
       script: sbt publishLocal docs/publishMicrosite
 
 notifications:
