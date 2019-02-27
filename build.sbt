@@ -23,7 +23,7 @@ lazy val docs = (project in file("docs"))
       "VERSION" -> version.value
     ),
     micrositePushSiteWith := GitHub4s,
-    micrositeGithubToken := getEnvVar("GITHUB_TOKEN")
+    micrositeGithubToken := sys.env.get("GITHUB_TOKEN")
   )
 
 lazy val core = (project in file("core"))
