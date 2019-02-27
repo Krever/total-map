@@ -19,7 +19,7 @@ jobs:
 
     - stage: deploy
       if: (branch = master)
-      script: sbt publishLocal docs/publishMicrosite
+      script: sbt docs/publishMicrosite publishLocal
 
 notifications:
   webhooks:
