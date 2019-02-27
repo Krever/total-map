@@ -2,6 +2,7 @@
 
 lazy val root = (project in file("."))
   .aggregate(core, enumeratum, pureconfig, docs)
+  .settings(noPublishSettings)
 
 lazy val docs = (project in file("docs"))
   .settings(commonSettings, noPublishSettings)
@@ -81,6 +82,7 @@ lazy val publishSettings = commonSettings ++ Seq(
 
 val noPublishSettings = commonSettings ++ Seq(
   publishArtifact := false,
-  publish := ()
+  publish := (),
+  publishLocal := ()
   //  publishLocal := ()
 )
