@@ -77,7 +77,7 @@ lazy val publishSettings = Seq(
   pgpPublicRing := file("pubring.asc"),
   pgpSecretRing := file("secring.asc"),
   pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toArray),
-  publishTo := sonatypePublishTo.value
+  publishTo := Some("releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
 )
 
 val noPublishSettings = commonSettings ++ Seq(
@@ -93,4 +93,4 @@ ThisBuild / credentials ++= (
     username <- sys.env.get("SONATYPE_USER")
     password <- sys.env.get("SONATYPE_PASSWORD")
   } yield Credentials("Sonatype Nexus Repository Manager", "oss.sonatype.org", username, password)
-  ).toList,
+).toList
