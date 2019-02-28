@@ -68,7 +68,7 @@ implicitly[AllValuesOf[Int]]
 
 You can get `enumeratum` support by installing
 
-```scala
+```scala mdoc
 libraryDependencies += "com.github.krever" % "total-map-enumeratum" % "@VERSION@"
 ```
 
@@ -86,7 +86,7 @@ object Animal extends Enum[Animal] {
 
 You can the instances for free
 
-```
+```scala mdoc
 import totalmap.modules.enumeratum._
 
 implicitly[AllValuesOf[Animal]]
