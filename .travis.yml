@@ -21,7 +21,7 @@ jobs:
     - stage: deploy
       if: (branch = master)
       script:
-        - sbt publishSigned sonatypeRelease docs/publishMicrosite
+        - sbt publishSigned sonatypeReleaseAll docs/publishMicrosite
 
 notifications:
   webhooks:
