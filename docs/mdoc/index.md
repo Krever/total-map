@@ -8,7 +8,7 @@ section: "home"
 
 **total-map** is a small library for working with types which have finite set of possible values. 
 
-## Why ?
+## Why?
 
 I want to have a `Map[K, V]` (read from config or created manually) that guarantees totality of `apply`.
 
@@ -37,7 +37,7 @@ trait TotalMap[K, +V] {
 }
 ```
 
-## How ?
+## How?
 
 Install
 ```scala

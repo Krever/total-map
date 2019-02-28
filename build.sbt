@@ -3,23 +3,26 @@
 lazy val root = (project in file("."))
   .aggregate(core, enumeratum, pureconfig, docs)
   .settings(noPublishSettings)
+  .settings(
+    name := "total-map"
+  )
 
 lazy val docs = (project in file("docs"))
   .settings(commonSettings, noPublishSettings)
-  .settings(name := "total-map")
   .dependsOn(core, enumeratum, pureconfig)
   .enablePlugins(MicrositesPlugin)
   .settings(
-    name := "total-map",
-    micrositeCompilingDocsTool := WithMdoc,
+    name := "docs",
     micrositeName := "TotalMap",
     micrositeDescription := "Simple library for total maps",
-    micrositeUrl := "http://w.pitula.me",
-    micrositeBaseUrl := "/total-map",
-    micrositeGitterChannel := true,
-    micrositeGithubOwner := "krever",
+    micrositeAuthor := "Wojtek Pituła",
+    micrositeGithubOwner := "Krever",
     micrositeGithubRepo := "total-map",
-    mdocIn := file("."),
+    micrositeBaseUrl := "/total-map",
+    micrositeUrl := "http://w.pitula.me",
+    micrositeGitterChannel := true,
+    micrositeCompilingDocsTool := WithMdoc,
+    mdocIn := file("docs/mdoc"),
     mdocVariables := Map(
       "VERSION" -> version.value
     ),
@@ -82,7 +85,7 @@ lazy val publishSettings = commonSettings ++ Seq(
 
 val noPublishSettings = commonSettings ++ Seq(
   publishArtifact := false,
-  publish := (),
-  publishLocal := ()
+  publish := ((): Unit),
+  publishLocal := ((): Unit),
   //  publishLocal := ()
 )
