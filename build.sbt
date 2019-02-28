@@ -1,5 +1,3 @@
-
-
 lazy val root = (project in file("."))
   .aggregate(core, enumeratum, pureconfig, docs)
   .settings(noPublishSettings)
@@ -32,11 +30,15 @@ lazy val docs = (project in file("docs"))
 
 lazy val core = (project in file("core"))
   .settings(commonSettings, publishSettings)
+  .settings(
+    name := "totalmap-core"
+  )
 
 lazy val enumeratum = (project in file("modules/enumeratum"))
   .settings(commonSettings, publishSettings)
   .dependsOn(core)
   .settings(
+    name := "totalmap-enumeratum",
     libraryDependencies += "com.beachape" %% "enumeratum" % "1.5.13"
   )
 
@@ -44,18 +46,18 @@ lazy val pureconfig = (project in file("modules/pureconfig"))
   .settings(commonSettings, publishSettings)
   .dependsOn(core)
   .settings(
+    name := "totalmap-pureconfig",
     libraryDependencies += "com.github.pureconfig" %% "pureconfig" % "0.10.2"
   )
 
-
 lazy val commonSettings = Seq(
-  organization := "com.github.krever.totalmap",
+  organization := "com.github.krever",
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.0.5" % "test",
   )
 )
 
-lazy val publishSettings = commonSettings ++ Seq(
+lazy val publishSettings = Seq(
   pomExtra :=
     <developers>
       <developer>
@@ -72,20 +74,23 @@ lazy val publishSettings = commonSettings ++ Seq(
       s"scm:git:git@github.com:krever/total-map.git"
     )
   ),
-//  pgpPublicRing := file("pubring.asc"),
-//  pgpSecretRing := file("secring.asc"),
-//  pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toArray),
-  credentials ++= (
-    for {
-      username <- sys.env.get("SONATYPE_USER")
-      password <- sys.env.get("SONATYPE_PASSWORD")
-    } yield Credentials("Sonatype Nexus Repository Manager", "oss.sonatype.org", username, password)
-    ).toList
+  pgpPublicRing := file("pubring.asc"),
+  pgpSecretRing := file("secring.asc"),
+  pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toArray),
+  publishTo := sonatypePublishTo.value
 )
 
 val noPublishSettings = commonSettings ++ Seq(
+  skip in publish := true,
   publishArtifact := false,
   publish := ((): Unit),
   publishLocal := ((): Unit),
   //  publishLocal := ()
 )
+
+ThisBuild / credentials ++= (
+  for {
+    username <- sys.env.get("SONATYPE_USER")
+    password <- sys.env.get("SONATYPE_PASSWORD")
+  } yield Credentials("Sonatype Nexus Repository Manager", "oss.sonatype.org", username, password)
+  ).toList,
