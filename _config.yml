@@ -6,6 +6,6 @@ docs: true
 collections:
   tut:
     output: true
-version: 0.0.1+2-0f016876+20190228-1644
+version: 0.0.1+3-2acb5872
 org: com.github.krever.totalmap
 markdown: kramdown
