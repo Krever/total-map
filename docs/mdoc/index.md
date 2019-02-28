@@ -68,7 +68,7 @@ implicitly[AllValuesOf[Int]]
 
 You can get `enumeratum` support by installing
 
-```scala mdoc
+```scala
 libraryDependencies += "com.github.krever" % "total-map-enumeratum" % "@VERSION@"
 ```
 
