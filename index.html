@@ -1,0 +1,97 @@
+<html><head><title>TotalMap: Home</title><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Wojtek Pituła" /><meta name="description" content="Simple library for total maps" /><meta name="og:image" content="/total-map/img/poster.png" /><meta name="image" property="og:image" content="/total-map/img/poster.png" /><meta name="og:title" content="TotalMap: Home" /><meta name="title" property="og:title" content="TotalMap: Home" /><meta name="og:site_name" content="TotalMap" /><meta name="og:url" content="" /><meta name="og:type" content="website" /><meta name="og:description" content="Simple library for total maps" /><link rel="icon" type="image/png" href="/total-map/img/favicon.png" /><meta name="twitter:title" content="TotalMap: Home" /><meta name="twitter:image" content="http://w.pitula.me/total-map/img/poster.png" /><meta name="twitter:description" content="Simple library for total maps" /><meta name="twitter:card" content="summary_large_image" /><link rel="icon" type="image/png" sizes="16x16" href="/total-map/img/favicon16x16.png" /><link rel="icon" type="image/png" sizes="24x24" href="/total-map/img/favicon24x24.png" /><link rel="icon" type="image/png" sizes="32x32" href="/total-map/img/favicon32x32.png" /><link rel="icon" type="image/png" sizes="48x48" href="/total-map/img/favicon48x48.png" /><link rel="icon" type="image/png" sizes="57x57" href="/total-map/img/favicon57x57.png" /><link rel="icon" type="image/png" sizes="60x60" href="/total-map/img/favicon60x60.png" /><link rel="icon" type="image/png" sizes="64x64" href="/total-map/img/favicon64x64.png" /><link rel="icon" type="image/png" sizes="70x70" href="/total-map/img/favicon70x70.png" /><link rel="icon" type="image/png" sizes="72x72" href="/total-map/img/favicon72x72.png" /><link rel="icon" type="image/png" sizes="76x76" href="/total-map/img/favicon76x76.png" /><link rel="icon" type="image/png" sizes="96x96" href="/total-map/img/favicon96x96.png" /><link rel="icon" type="image/png" sizes="114x114" href="/total-map/img/favicon114x114.png" /><link rel="icon" type="image/png" sizes="120x120" href="/total-map/img/favicon120x120.png" /><link rel="icon" type="image/png" sizes="128x128" href="/total-map/img/favicon128x128.png" /><link rel="icon" type="image/png" sizes="144x144" href="/total-map/img/favicon144x144.png" /><link rel="icon" type="image/png" sizes="150x150" href="/total-map/img/favicon150x150.png" /><link rel="icon" type="image/png" sizes="152x152" href="/total-map/img/favicon152x152.png" /><link rel="icon" type="image/png" sizes="196x196" href="/total-map/img/favicon196x196.png" /><link rel="icon" type="image/png" sizes="310x310" href="/total-map/img/favicon310x310.png" /><link rel="icon" type="image/png" sizes="310x150" href="/total-map/img/favicon310x150.png" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/total-map/highlight/styles/default.css" /><link rel="stylesheet" href="/total-map/css/style.css" /><link rel="stylesheet" href="/total-map/css/palette.css" /><link rel="stylesheet" href="/total-map/css/codemirror.css" /></head><body><header id="site-header"><div class="navbar-wrapper"><div class="container"><div class="row"><div class="col-xs-6"><a href="/total-map/" class="brand"><div class="icon-wrapper"><span>TotalMap</span></div></a></div><div class="col-xs-6"><nav class="text-right"><ul class=""><li><a href="https://github.com/Krever/total-map"><i class="fa fa-github"></i><span class="hidden-xs">GitHub</span></a></li></ul></nav></div></div></div></div><div class="jumbotron"><div class="container"><h1 class="text-center">Simple library for total maps</h1><h2></h2><p class="text-center"><a href="https://github.com/Krever/total-map" class="btn btn-outline-inverse">View on GitHub</a></p></div></div><div><ul class="horizontalNav">      </ul></div></header><main id="site-main"><section class="use"><div class="container"><div id="content"><h1 id="total-map">total-map</h1>
+
+<p><strong>total-map</strong> is a small library for working with types which have finite set of possible values.</p>
+
+<h2 id="why">Why?</h2>
+
+<p>I want to have a <code class="highlighter-rouge">Map[K, V]</code> (read from config or created manually) that guarantees totality of <code class="highlighter-rouge">apply</code>.</p>
+
+<h2 id="what">What?</h2>
+
+<p>The core of the library is just two things:</p>
+
+<h3 id="allvaluesoft"><code class="highlighter-rouge">AllValuesOf[T]</code></h3>
+
+<p>A typeclass which express all possible values of given type</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">AllValuesOf</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">toSet</span><span class="k">:</span> <span class="kt">Set</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="totalmapk-v"><code class="highlighter-rouge">TotalMap[K, V]</code></h3>
+
+<p>A data structure which guarantees that there exist an entry for every possible key</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">TotalMap</span><span class="o">[</span><span class="kt">K</span>, <span class="kt">+V</span><span class="o">]</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">toMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">K</span>, <span class="kt">V</span><span class="o">]</span>
+    <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">k</span><span class="k">:</span> <span class="kt">K</span><span class="o">)</span><span class="k">:</span> <span class="kt">V</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="how">How?</h2>
+
+<p>Install</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map"</span> <span class="o">%</span> <span class="s">"0.0.1+2-0f016876+20190228-1644"</span>
+</code></pre></div></div>
+
+<p>Import</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">totalmap._</span>
+</code></pre></div></div>
+
+<p>An then you need to have an instance of <code class="highlighter-rouge">AllValuesOf[T]</code>. It can be acquired in one of 2 ways:</p>
+
+<h3 id="use-preexisting-instances">Use preexisting instances</h3>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]]</span>
+<span class="c1">// res1: AllValuesOf[Unit] = AllValuesOf(())
+</span><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]]</span>
+<span class="c1">// res2: AllValuesOf[Boolean] = AllValuesOf(true,false)
+</span></code></pre></div></div>
+
+<p>Instances that require materializing big collections are not available, but might come if someone comes with reasonable
+use case</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span>
+<span class="c1">// error: could not find implicit value for parameter e: totalmap.AllValuesOf[Int]
+// implicitly[AllValuesOf[Int]]
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+</span></code></pre></div></div>
+
+<h4 id="enumeratum">Enumeratum</h4>
+
+<p>You can get <code class="highlighter-rouge">enumeratum</code> support by installing</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map-enumeratum"</span> <span class="o">%</span> <span class="s">"0.0.1+2-0f016876+20190228-1644"</span>
+</code></pre></div></div>
+
+<p>So when you have an <code class="highlighter-rouge">Enum</code></p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">enumeratum._</span>
+<span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Animal</span> <span class="k">extends</span> <span class="nc">EnumEntry</span>  
+<span class="k">object</span> <span class="nc">Animal</span> <span class="k">extends</span> <span class="nc">Enum</span><span class="o">[</span><span class="kt">Animal</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="k">object</span> <span class="nc">Cat</span> <span class="k">extends</span> <span class="nc">Animal</span>
+  <span class="k">case</span> <span class="k">object</span> <span class="nc">Dog</span> <span class="k">extends</span> <span class="nc">Animal</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">values</span><span class="k">:</span> <span class="kt">scala.collection.immutable.IndexedSeq</span><span class="o">[</span><span class="kt">Animal</span><span class="o">]</span> <span class="k">=</span> <span class="n">findValues</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can the instances for free</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import totalmap.modules.enumeratum._
+
+implicitly[AllValuesOf[Animal]]
+</code></pre></div></div>
+
+<h3 id="create-named-set">Create named set</h3>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="n">myStrings</span> <span class="k">=</span> <span class="nc">AllValuesOf</span><span class="o">.</span><span class="n">set</span><span class="o">(</span><span class="nc">Set</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="s">"c"</span><span class="o">))</span>
+<span class="c1">// myStrings: AllValuesOf.NamedSet[String] = totalmap.AllValuesOf$$anon$2@63e83e2d
+</span>
+<span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">myStrings.Elem</span><span class="o">]]</span>
+<span class="c1">// res4: AllValuesOf[myStrings.Elem] = AllValuesOf(a,b,c)
+</span></code></pre></div></div>
+
+</div></div></section><section class="technologies"><div class="container"><div class="row"></div></div></section></main><footer id="site-footer"><div class="container"><div class="row"><div class="col-xs-6"><p>TotalMap is designed and developed by <a href="" target="_blank">Wojtek Pituła</a></p></div><div class="col-xs-6"><p class="text-right"><a href="https://github.com/Krever/total-map"><span class="fa fa-github"></span>View on GitHub</a></p></div></div><div class="row"><div class="col-xs-6"><p>Website built with <a href="https://47deg.github.io/sbt-microsites/" target="_blank">Sbt-microsites</a> - © 2016 <a href="https://www.47deg.com/" target="_blank">47 Degrees</a></p></div></div></div></footer></body></html>

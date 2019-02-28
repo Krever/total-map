@@ -1,0 +1,11 @@
+name: TotalMap
+baseurl: /total-map
+description: Simple library for total maps
+highlighter: rouge
+docs: true
+collections:
+  tut:
+    output: true
+version: 0.0.1+2-0f016876+20190228-1644
+org: com.github.krever.totalmap
+markdown: kramdown
