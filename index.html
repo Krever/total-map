@@ -35,7 +35,7 @@
 
 <p>Install</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map"</span> <span class="o">%</span> <span class="s">"0.0.1+16-86ecc6db"</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map"</span> <span class="o">%</span> <span class="s">"0.0.1+17-e76743b4"</span>
 </code></pre>
 </div>
 
@@ -70,7 +70,7 @@ use case</p>
 
 <p>You can get <code class="highlighter-rouge">enumeratum</code> support by installing</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map-enumeratum"</span> <span class="o">%</span> <span class="s">"0.0.1+16-86ecc6db"</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map-enumeratum"</span> <span class="o">%</span> <span class="s">"0.0.1+17-e76743b4"</span>
 </code></pre>
 </div>
 
@@ -98,7 +98,7 @@ use case</p>
 <h3 id="create-named-set">Create named set</h3>
 
 <div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="n">myStrings</span> <span class="k">=</span> <span class="nc">AllValuesOf</span><span class="o">.</span><span class="n">set</span><span class="o">(</span><span class="nc">Set</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="s">"c"</span><span class="o">))</span>
-<span class="c1">// myStrings: AllValuesOf.NamedSet[String] = totalmap.AllValuesOf$$anon$2@1473f2b7
+<span class="c1">// myStrings: AllValuesOf.NamedSet[String] = totalmap.AllValuesOf$$anon$2@76c33df
 </span>
 <span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">myStrings.Elem</span><span class="o">]]</span>
 <span class="c1">// res5: AllValuesOf[myStrings.Elem] = AllValuesOf(a,b,c)
