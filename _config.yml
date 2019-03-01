@@ -6,6 +6,6 @@ docs: true
 collections:
   tut:
     output: true
-version: 0.0.1+14-c0dad29e
+version: 0.0.1+15-a5a02751
 org: com.github.krever
 markdown: kramdown

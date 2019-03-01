@@ -36,7 +36,7 @@ trait TotalMap[K, +V] {
 <p>Install</p>
 
 <p><code>scala
-libraryDependencies += "com.github.krever" % "total-map" % "0.0.1+14-c0dad29e"
+libraryDependencies += "com.github.krever" % "total-map" % "0.0.1+15-a5a02751"
 </code></p>
 
 <p>Import</p>
@@ -71,7 +71,7 @@ implicitly[AllValuesOf[Int]]
 <p>You can get <code>enumeratum</code> support by installing</p>
 
 <p><code>scala
-libraryDependencies += "com.github.krever" % "total-map-enumeratum" % "0.0.1+14-c0dad29e"
+libraryDependencies += "com.github.krever" % "total-map-enumeratum" % "0.0.1+15-a5a02751"
 </code></p>
 
 <p>So when you have an <code>Enum</code></p>
@@ -99,7 +99,7 @@ import totalmap.modules.enumeratum._</p>
 
 <p>```scala
 implicit val myStrings = AllValuesOf.set(Set(“a”, “b”, “c”))
-// myStrings: AllValuesOf.NamedSet[String] = totalmap.AllValuesOf$$anon$2@30e9877e</p>
+// myStrings: AllValuesOf.NamedSet[String] = totalmap.AllValuesOf$$anon$2@32959962</p>
 
 <p>implicitly[AllValuesOf[myStrings.Elem]]
 // res5: AllValuesOf[myStrings.Elem] = AllValuesOf(a,b,c)
