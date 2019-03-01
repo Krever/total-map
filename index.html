@@ -14,85 +14,95 @@
 
 <p>A typeclass which express all possible values of given type</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">AllValuesOf</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">AllValuesOf</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>
     <span class="k">def</span> <span class="n">toSet</span><span class="k">:</span> <span class="kt">Set</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="totalmapk-v"><code class="highlighter-rouge">TotalMap[K, V]</code></h3>
 
 <p>A data structure which guarantees that there exist an entry for every possible key</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">TotalMap</span><span class="o">[</span><span class="kt">K</span>, <span class="kt">+V</span><span class="o">]</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">TotalMap</span><span class="o">[</span><span class="kt">K</span>, <span class="kt">+V</span><span class="o">]</span> <span class="o">{</span>
     <span class="k">def</span> <span class="n">toMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">K</span>, <span class="kt">V</span><span class="o">]</span>
     <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">k</span><span class="k">:</span> <span class="kt">K</span><span class="o">)</span><span class="k">:</span> <span class="kt">V</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="how">How?</h2>
 
 <p>Install</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map"</span> <span class="o">%</span> <span class="s">"0.0.1+15-a5a02751"</span>
-</code></pre></div></div>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map"</span> <span class="o">%</span> <span class="s">"0.0.1+16-86ecc6db"</span>
+</code></pre>
+</div>
 
 <p>Import</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">totalmap._</span>
-</code></pre></div></div>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">totalmap._</span>
+</code></pre>
+</div>
 
 <p>An then you need to have an instance of <code class="highlighter-rouge">AllValuesOf[T]</code>. It can be acquired in one of 2 ways:</p>
 
 <h3 id="use-preexisting-instances">Use preexisting instances</h3>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]]</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]]</span>
 <span class="c1">// res1: AllValuesOf[Unit] = AllValuesOf(())
 </span><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]]</span>
 <span class="c1">// res2: AllValuesOf[Boolean] = AllValuesOf(true,false)
-</span></code></pre></div></div>
+</span></code></pre>
+</div>
 
 <p>Instances that require materializing big collections are not available, but might come if someone comes with reasonable
 use case</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span>
 <span class="c1">// error: could not find implicit value for parameter e: totalmap.AllValuesOf[Int]
 // implicitly[AllValuesOf[Int]]
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-</span></code></pre></div></div>
+</span></code></pre>
+</div>
 
 <h4 id="enumeratum">Enumeratum</h4>
 
 <p>You can get <code class="highlighter-rouge">enumeratum</code> support by installing</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map-enumeratum"</span> <span class="o">%</span> <span class="s">"0.0.1+15-a5a02751"</span>
-</code></pre></div></div>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map-enumeratum"</span> <span class="o">%</span> <span class="s">"0.0.1+16-86ecc6db"</span>
+</code></pre>
+</div>
 
 <p>So when you have an <code class="highlighter-rouge">Enum</code></p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">enumeratum._</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">enumeratum._</span>
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Animal</span> <span class="k">extends</span> <span class="nc">EnumEntry</span>  
 <span class="k">object</span> <span class="nc">Animal</span> <span class="k">extends</span> <span class="nc">Enum</span><span class="o">[</span><span class="kt">Animal</span><span class="o">]</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">object</span> <span class="nc">Cat</span> <span class="k">extends</span> <span class="nc">Animal</span>
   <span class="k">case</span> <span class="k">object</span> <span class="nc">Dog</span> <span class="k">extends</span> <span class="nc">Animal</span>
   <span class="k">override</span> <span class="k">def</span> <span class="n">values</span><span class="k">:</span> <span class="kt">scala.collection.immutable.IndexedSeq</span><span class="o">[</span><span class="kt">Animal</span><span class="o">]</span> <span class="k">=</span> <span class="n">findValues</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>You can the instances for free</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">totalmap.modules.enumeratum._</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">totalmap.modules.enumeratum._</span>
 
 <span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">Animal</span><span class="o">]]</span>
 <span class="c1">// res4: AllValuesOf[Animal] = AllValuesOf(Cat,Dog)
-</span></code></pre></div></div>
+</span></code></pre>
+</div>
 
 <h3 id="create-named-set">Create named set</h3>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="n">myStrings</span> <span class="k">=</span> <span class="nc">AllValuesOf</span><span class="o">.</span><span class="n">set</span><span class="o">(</span><span class="nc">Set</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="s">"c"</span><span class="o">))</span>
-<span class="c1">// myStrings: AllValuesOf.NamedSet[String] = totalmap.AllValuesOf$$anon$2@a78bd75
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="n">myStrings</span> <span class="k">=</span> <span class="nc">AllValuesOf</span><span class="o">.</span><span class="n">set</span><span class="o">(</span><span class="nc">Set</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="s">"c"</span><span class="o">))</span>
+<span class="c1">// myStrings: AllValuesOf.NamedSet[String] = totalmap.AllValuesOf$$anon$2@1473f2b7
 </span>
 <span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValuesOf</span><span class="o">[</span><span class="kt">myStrings.Elem</span><span class="o">]]</span>
 <span class="c1">// res5: AllValuesOf[myStrings.Elem] = AllValuesOf(a,b,c)
-</span></code></pre></div></div>
+</span></code></pre>
+</div>
 
 </div></div></section><section class="technologies"><div class="container"><div class="row"></div></div></section></main><footer id="site-footer"><div class="container"><div class="row"><div class="col-xs-6"><p>TotalMap is designed and developed by <a href="" target="_blank">Wojtek Pituła</a></p></div><div class="col-xs-6"><p class="text-right"><a href="https://github.com/Krever/total-map"><span class="fa fa-github"></span>View on GitHub</a></p></div></div><div class="row"><div class="col-xs-6"><p>Website built with <a href="https://47deg.github.io/sbt-microsites/" target="_blank">Sbt-microsites</a> - © 2016 <a href="https://www.47deg.com/" target="_blank">47 Degrees</a></p></div></div></div></footer></body></html>
