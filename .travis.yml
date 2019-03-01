@@ -44,6 +44,7 @@ env:
   # PGP_PASSPHRASE
   - secure: "iyq16vQrLfaDpbvKtvh5EXtNAyWM2gt/xPgxSj8KDnXyb39FIjzi65ogtixjIgAX7zYv/+tqF+C6j/6P5r2hgnxsZGTfPyed/kph+qEm7/jZxbYtzEuKw6EIk+fY67EKPA+o+XiEsK5ZV8o9o3jHJr/bl08bmusJ8Q7dst3LyNwPZ1WUO8++5v8H33cpqh17GwBKDNX5w6q48tsjfZFFRZ7Vh99eSO3IfT78BS5nPSmbCHAE256Esci09HDy4qLd0UwrOQbJLf9WyLxy/oG2qXRns3oEICMleqqlKJQdEV5eHFGnNZjj8qyTM1pPSLEU5MRyr9mWHcuD0ZP8eZM4aUQuRk/Zog7zYZ4d0ScG6wmzciJjX8kzda8ZhobUe1D/wAd3sXdFf7Q4CPQFjHHjWqA2ZqyH7Aqlfv6o+9BorFD+teSAt7yxZjGc36LN2H+GIFRDxBelcgwGLbHH29MGm3xfThNTw74GMwn2FnSmmy/Ryfq/95bF7YFvHLH0brIaAtmWlQ7DoneJyfbfiP9AcXJoJe8To8nuwjNz214UZ+iYO51x+3Br3KkFIB4cR11tBjouV4UrbeiTDexH425KDSI3RFx1fzGDkIPzAF3nK49EHBwQJRB0Oo/cDNrlBh1/KS8Wigeuz8d27LTUk0KSm5h8crR6f7SxaVxKvKhJdfA="
 cache:
+  bundler: true
   directories:
   - "$HOME/.m2"
   - "$HOME/.ivy2/cache"
