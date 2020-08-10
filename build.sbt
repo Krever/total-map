@@ -88,7 +88,7 @@ val noPublishSettings = commonSettings ++ Seq(
   //  publishLocal := ()
 )
 
-publishTo := sonatypePublishToBundle.value
+ThisBuild / publishTo := sonatypePublishToBundle.value
 ThisBuild / credentials ++= (
   for {
     username <- sys.env.get("SONATYPE_USER")
