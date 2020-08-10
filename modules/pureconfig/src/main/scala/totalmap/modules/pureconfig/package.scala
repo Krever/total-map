@@ -1,19 +1,20 @@
 package totalmap.modules
 
-import _root_.pureconfig._
 import _root_.pureconfig.ConfigReader.Result
+import _root_.pureconfig._
 import _root_.pureconfig.error.CannotConvert
 import com.typesafe.config.ConfigValue
 import totalmap.TotalMap.NonTotal
-import totalmap.{AllValuesOf, TotalMap}
+import totalmap.{AllValues, TotalMap}
 
 package object pureconfig {
 
   implicit def totalMapConfigConvert[K, V](implicit mapConvert: Derivation[ConfigConvert[Map[K, V]]],
-                                           staticSet: AllValuesOf[K]): ConfigConvert[TotalMap[K, V]] = {
+                                           allValues: AllValues[K]): ConfigConvert[TotalMap[K, V]] = {
     val reader: ConfigReader[TotalMap[K, V]] = mapConvert.value.emap(map => {
-      TotalMap.fromMap[K, V](map).left.map {
-        case NonTotal(missing) => CannotConvert(map.toString(), "TotalMap", s"following keys are missing: ${missing.mkString("[", ",", "]")}")
+      TotalMap.fromMap(map).left.map {
+        case NonTotal(missing) =>
+          CannotConvert(map.toString(), "TotalMap", s"following keys are missing: ${missing.mkString("[", ",", "]")}")
       }
     })
     val writer = mapConvert.value.contramap[TotalMap[K, V]](_.toMap.toMap)
@@ -25,21 +26,18 @@ package object pureconfig {
     }
   }
 
-  implicit def totalMapConfigConvertFromAnonSet[Base, V](implicit ss: AllValuesOf.NamedSet[Base],
-                                                         mapConvert: Derivation[ConfigConvert[Map[Base, V]]]): ConfigConvert[TotalMap[ss.Elem, V]] = {
-    val reader: ConfigReader[TotalMap[ss.Elem, V]] = mapConvert.value.emap(map => {
-      val properMap = map.flatMap { case (k, v) => ss.get.getElem(k).map(_ -> v) }
-      TotalMap.fromMap[ss.Elem, V](properMap)(ss.get).left.map {
-        case NonTotal(missing) => CannotConvert(map.toString(), "TotalMap", s"following keys are missing: ${missing.mkString("[", ",", "]")}")
-      }
-    })
-    val writer = mapConvert.value.contramap[TotalMap[ss.Elem, V]](_.toMap.toMap)
+  implicit def mapConvert[K <: String, V](implicit allValues: AllValues[K],
+                                          vReader: Derivation[ConfigReader[V]],
+                                          vWriter: Derivation[ConfigWriter[V]]): ConfigConvert[Map[K, V]] = {
+    import _root_.pureconfig._
+    import _root_.pureconfig.configurable._
+    import _root_.pureconfig.error._
 
-    new ConfigConvert[TotalMap[ss.Elem, V]] {
-      override def from(cur: ConfigCursor): Result[TotalMap[ss.Elem, V]] = reader.from(cur)
+    val reader: ConfigReader[Map[K, V]] = genericMapReader(
+      key => allValues.getElem(key).toRight(KeyNotFound(key, allValues.toSet.toSet)))
+    val writer: ConfigWriter[Map[K, V]] = genericMapWriter((x: K) => x)
 
-      override def to(a: TotalMap[ss.Elem, V]): ConfigValue = writer.to(a)
-    }
+    ConfigConvert[Map[K, V]](reader, writer)
   }
 
 }

@@ -10,25 +10,21 @@ section: "home"
 
 ## Why?
 
-I want to have a `Map[K, V]` (read from config or created manually) that guarantees totality of `apply`.
+To have a `Map[K, V]` that guarantees totality of `apply`.
 
 ## What?
 
 The core of the library is just two things:
 
-### `AllValuesOf[T]` 
-
 A typeclass which express all possible values of given type
 
 ```scala mdoc
-trait AllValuesOf[T] {
+trait AllValues[T] {
     def toSet: Set[T]
 }
 ```
 
-### `TotalMap[K, V]` 
-
-A data structure which guarantees that there exist an entry for every possible key
+And a data structure which guarantees that there exist an entry for every possible key
 
 ```scala mdoc
 trait TotalMap[K, +V] {
@@ -49,19 +45,28 @@ Import
 import totalmap._
 ```
 
-An then you need to have an instance of `AllValuesOf[T]`. It can be acquired in one of 2 ways:
+An then you need to have an instance of `AllValues[T]`. It can be acquired in few ways:
+
+### Create named set
+
+```scala mdoc
+val myStrings = NamedSet("a", "b", "c")
+import myStrings.allValues
+
+implicitly[AllValues[myStrings.Elem]]
+```
 
 ### Use preexisting instances
 
 ```scala mdoc
-implicitly[AllValuesOf[Unit]]
-implicitly[AllValuesOf[Boolean]]
+implicitly[AllValues[Unit]]
+implicitly[AllValues[Boolean]]
 ```
 
 Instances that require materializing big collections are not available, but might come if someone comes with reasonable 
 use case
 ```scala mdoc:fail
-implicitly[AllValuesOf[Int]]
+implicitly[AllValues[Int]]
 ```
 
 #### Enumeratum
@@ -89,21 +94,34 @@ You can the instances for free
 ```scala mdoc
 import totalmap.modules.enumeratum._
 
-implicitly[AllValuesOf[Animal]]
+implicitly[AllValues[Animal]]
 ```
 
+## Pureconfig support
 
-### Create named set
+You can load `TotalMap`s directly from config. This works currently only for `String`s as keys.
 
-```scala mdoc
-implicit val myStrings = AllValuesOf.set(Set("a", "b", "c"))
+```scala mdoc:reset
+import totalmap._
+import com.typesafe.config.ConfigFactory
+import pureconfig._
+import totalmap.modules.pureconfig._
 
-implicitly[AllValuesOf[myStrings.Elem]]
+val mySet = NamedSet("a", "b", "c")
+import mySet.allValues
+
+implicitly[AllValues[mySet.Elem]]
+
+val cfg = ConfigFactory.parseString(
+    """
+    |a = foo
+    |b = bar
+    |c = baz
+    """.stripMargin
+)
+
+val result = pureconfig.loadConfig[TotalMap[mySet.Elem, String]](cfg)
 ```
-
-
-
-
 
 
 

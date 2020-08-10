@@ -39,7 +39,7 @@ lazy val enumeratum = (project in file("modules/enumeratum"))
   .dependsOn(core)
   .settings(
     name := "totalmap-enumeratum",
-    libraryDependencies += "com.beachape" %% "enumeratum" % "1.5.13"
+    libraryDependencies += "com.beachape" %% "enumeratum" % "1.6.1"
   )
 
 lazy val pureconfig = (project in file("modules/pureconfig"))
@@ -47,7 +47,7 @@ lazy val pureconfig = (project in file("modules/pureconfig"))
   .dependsOn(core)
   .settings(
     name := "totalmap-pureconfig",
-    libraryDependencies += "com.github.pureconfig" %% "pureconfig" % "0.10.2"
+    libraryDependencies += "com.github.pureconfig" %% "pureconfig" % "0.13.0"
   )
 
 lazy val commonSettings = Seq(

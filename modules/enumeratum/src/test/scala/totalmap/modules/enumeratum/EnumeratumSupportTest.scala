@@ -1,8 +1,8 @@
-package enumeratum
+package totalmap.modules.enumeratum
 
 import _root_.enumeratum._
 import org.scalatest.FunSuite
-import totalmap.TotalMap
+import totalmap.{AllValues, TotalMap}
 
 import scala.collection.immutable
 
@@ -19,17 +19,11 @@ class EnumeratumSupportTest extends FunSuite {
     override def values: immutable.IndexedSeq[Foo] = findValues
   }
 
-
-  test("implicit static set for enums") {
+  test("implicit AllValues for enums") {
 
     import totalmap.modules.enumeratum._
 
-    val x = TotalMap.fromInstancesOf[Foo]({
-      case Foo.A => true
-      case Foo.B => false
-    })
-
-    assert(x.toMap == Map(Foo.A -> true, Foo.B -> false))
+    implicitly[AllValues[Foo]]
   }
 
 }

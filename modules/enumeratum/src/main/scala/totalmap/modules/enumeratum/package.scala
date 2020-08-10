@@ -1,11 +1,12 @@
 package totalmap.modules
 
-import totalmap.AllValuesOf
-
-import _root_.enumeratum._
+import _root_.enumeratum.EnumEntry
+import _root_.enumeratum.Enum
+import totalmap.AllValues
 
 package object enumeratum {
 
-  implicit def enumeratumStaticSet[E <: EnumEntry](implicit enum: Enum[E]): AllValuesOf[E] = AllValuesOf.fromSetUnsafe(enum.values.toSet)
+  implicit def enumeratumEnumAllValues[E <: EnumEntry](implicit enum: Enum[E]): AllValues[E] =
+    AllValues.fromSetUnsafe(enum.values.toSet)
 
 }
