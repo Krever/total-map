@@ -74,8 +74,9 @@ lazy val publishSettings = Seq(
       s"scm:git:git@github.com:krever/total-map.git"
     )
   ),
-  pgpPublicRing := file("pubring.asc"),
-  pgpSecretRing := file("secring.asc"),
+  useGpg := false,
+  pgpPublicRing := file("./pubring.asc"),
+  pgpSecretRing := file("./secring.asc"),
   pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toArray),
   publishTo := Some("releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
 )
