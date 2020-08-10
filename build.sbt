@@ -77,8 +77,7 @@ lazy val publishSettings = Seq(
   useGpg := false,
   pgpPublicRing := file("./pubring.asc"),
   pgpSecretRing := file("./secring.asc"),
-  pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toArray),
-  publishTo := sonatypePublishToBundle.value
+  pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toArray)
 )
 
 val noPublishSettings = commonSettings ++ Seq(
@@ -89,6 +88,7 @@ val noPublishSettings = commonSettings ++ Seq(
   //  publishLocal := ()
 )
 
+publishTo := sonatypePublishToBundle.value
 ThisBuild / credentials ++= (
   for {
     username <- sys.env.get("SONATYPE_USER")
