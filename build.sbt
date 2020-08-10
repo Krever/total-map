@@ -78,7 +78,7 @@ lazy val publishSettings = Seq(
   pgpPublicRing := file("./pubring.asc"),
   pgpSecretRing := file("./secring.asc"),
   pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toArray),
-  publishTo := Some("releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
+  publishTo := sonatypePublishToBundle.value
 )
 
 val noPublishSettings = commonSettings ++ Seq(
