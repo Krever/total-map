@@ -4,7 +4,7 @@
 
 <h2 id="why">Why?</h2>
 
-<p>To have a <code class="language-plaintext highlighter-rouge">Map[K, V]</code> that guarantees totality of <code class="language-plaintext highlighter-rouge">apply</code>.</p>
+<p>To have a <code class="highlighter-rouge">Map[K, V]</code> that guarantees totality of <code class="highlighter-rouge">apply</code>.</p>
 
 <h2 id="what">What?</h2>
 
@@ -12,113 +12,124 @@
 
 <p>A typeclass which express all possible values of given type</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">AllValues</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>
-    <span class="k">def</span> <span class="nf">toSet</span><span class="k">:</span> <span class="kt">Set</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">AllValues</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">toSet</span><span class="k">:</span> <span class="kt">Set</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>And a data structure which guarantees that there exist an entry for every possible key</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">TotalMap</span><span class="o">[</span><span class="kt">K</span>, <span class="kt">+V</span><span class="o">]</span> <span class="o">{</span>
-    <span class="k">def</span> <span class="nf">toMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">K</span>, <span class="kt">V</span><span class="o">]</span>
-    <span class="k">def</span> <span class="nf">apply</span><span class="o">(</span><span class="n">k</span><span class="k">:</span> <span class="kt">K</span><span class="o">)</span><span class="k">:</span> <span class="kt">V</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">TotalMap</span><span class="o">[</span><span class="kt">K</span>, <span class="kt">+V</span><span class="o">]</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">toMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">K</span>, <span class="kt">V</span><span class="o">]</span>
+    <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">k</span><span class="k">:</span> <span class="kt">K</span><span class="o">)</span><span class="k">:</span> <span class="kt">V</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="how">How?</h2>
 
 <p>Install</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map"</span> <span class="o">%</span> <span class="s">"0.0.2+6-28e930c1+20200810-1515"</span>
-</code></pre></div></div>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map"</span> <span class="o">%</span> <span class="s">"0.0.1+27-836b70f1"</span>
+</code></pre>
+</div>
 
 <p>Import</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">totalmap._</span>
-</code></pre></div></div>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">totalmap._</span>
+</code></pre>
+</div>
 
-<p>An then you need to have an instance of <code class="language-plaintext highlighter-rouge">AllValues[T]</code>. It can be acquired in few ways:</p>
+<p>An then you need to have an instance of <code class="highlighter-rouge">AllValues[T]</code>. It can be acquired in few ways:</p>
 
 <h3 id="create-named-set">Create named set</h3>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">myStrings</span> <span class="k">=</span> <span class="nc">NamedSet</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="s">"c"</span><span class="o">)</span>
-<span class="c1">// myStrings: NamedSet[String] = totalmap.NamedSet$$anon$2@74d08f05</span>
-<span class="k">import</span> <span class="nn">myStrings.allValues</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">val</span> <span class="n">myStrings</span> <span class="k">=</span> <span class="nc">NamedSet</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="s">"c"</span><span class="o">)</span>
+<span class="c1">// myStrings: NamedSet[String] = totalmap.NamedSet$$anon$2@162ae2dc
+</span><span class="k">import</span> <span class="nn">myStrings.allValues</span>
 
 <span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValues</span><span class="o">[</span><span class="kt">myStrings.Elem</span><span class="o">]]</span>
-<span class="c1">// res1: AllValues[myStrings.Elem] = AllValues(a,b,c)</span>
-</code></pre></div></div>
+<span class="c1">// res1: AllValues[myStrings.Elem] = AllValues(a,b,c)
+</span></code></pre>
+</div>
 
 <h3 id="use-preexisting-instances">Use preexisting instances</h3>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValues</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]]</span>
-<span class="c1">// res2: AllValues[Unit] = AllValues(())</span>
-<span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValues</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]]</span>
-<span class="c1">// res3: AllValues[Boolean] = AllValues(true,false)</span>
-</code></pre></div></div>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValues</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]]</span>
+<span class="c1">// res2: AllValues[Unit] = AllValues(())
+</span><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValues</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]]</span>
+<span class="c1">// res3: AllValues[Boolean] = AllValues(true,false)
+</span></code></pre>
+</div>
 
 <p>Instances that require materializing big collections are not available, but might come if someone comes with reasonable 
 use case</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValues</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span>
-<span class="c1">// error: could not find implicit value for parameter e: totalmap.AllValues[Int]</span>
-<span class="c1">// implicitly[AllValues[Int]]</span>
-<span class="c1">// ^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
-</code></pre></div></div>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValues</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span>
+<span class="c1">// error: could not find implicit value for parameter e: totalmap.AllValues[Int]
+// implicitly[AllValues[Int]]
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^
+</span></code></pre>
+</div>
 
 <h4 id="enumeratum">Enumeratum</h4>
 
-<p>You can get <code class="language-plaintext highlighter-rouge">enumeratum</code> support by installing</p>
+<p>You can get <code class="highlighter-rouge">enumeratum</code> support by installing</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map-enumeratum"</span> <span class="o">%</span> <span class="s">"0.0.2+6-28e930c1+20200810-1515"</span>
-</code></pre></div></div>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"com.github.krever"</span> <span class="o">%</span> <span class="s">"total-map-enumeratum"</span> <span class="o">%</span> <span class="s">"0.0.1+27-836b70f1"</span>
+</code></pre>
+</div>
 
-<p>So when you have an <code class="language-plaintext highlighter-rouge">Enum</code></p>
+<p>So when you have an <code class="highlighter-rouge">Enum</code></p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">enumeratum._</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">enumeratum._</span>
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Animal</span> <span class="k">extends</span> <span class="nc">EnumEntry</span>  
 <span class="k">object</span> <span class="nc">Animal</span> <span class="k">extends</span> <span class="nc">Enum</span><span class="o">[</span><span class="kt">Animal</span><span class="o">]</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">object</span> <span class="nc">Cat</span> <span class="k">extends</span> <span class="nc">Animal</span>
   <span class="k">case</span> <span class="k">object</span> <span class="nc">Dog</span> <span class="k">extends</span> <span class="nc">Animal</span>
-  <span class="k">override</span> <span class="k">def</span> <span class="nf">values</span><span class="k">:</span> <span class="kt">scala.collection.immutable.IndexedSeq</span><span class="o">[</span><span class="kt">Animal</span><span class="o">]</span> <span class="k">=</span> <span class="n">findValues</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">values</span><span class="k">:</span> <span class="kt">scala.collection.immutable.IndexedSeq</span><span class="o">[</span><span class="kt">Animal</span><span class="o">]</span> <span class="k">=</span> <span class="n">findValues</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>You can the instances for free</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">totalmap.modules.enumeratum._</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">totalmap.modules.enumeratum._</span>
 
 <span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValues</span><span class="o">[</span><span class="kt">Animal</span><span class="o">]]</span>
-<span class="c1">// res5: AllValues[Animal] = AllValues(Cat,Dog)</span>
-</code></pre></div></div>
+<span class="c1">// res5: AllValues[Animal] = AllValues(Cat,Dog)
+</span></code></pre>
+</div>
 
 <h2 id="pureconfig-support">Pureconfig support</h2>
 
-<p>You can load <code class="language-plaintext highlighter-rouge">TotalMap</code>s directly from config. This works currently only for <code class="language-plaintext highlighter-rouge">String</code>s as keys.</p>
+<p>You can load <code class="highlighter-rouge">TotalMap</code>s directly from config. This works currently only for <code class="highlighter-rouge">String</code>s as keys.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">totalmap._</span>
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">totalmap._</span>
 <span class="k">import</span> <span class="nn">com.typesafe.config.ConfigFactory</span>
 <span class="k">import</span> <span class="nn">pureconfig._</span>
 <span class="k">import</span> <span class="nn">totalmap.modules.pureconfig._</span>
 
-<span class="k">val</span> <span class="nv">mySet</span> <span class="k">=</span> <span class="nc">NamedSet</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="s">"c"</span><span class="o">)</span>
-<span class="c1">// mySet: NamedSet[String] = totalmap.NamedSet$$anon$2@7931f4dc</span>
-<span class="k">import</span> <span class="nn">mySet.allValues</span>
+<span class="k">val</span> <span class="n">mySet</span> <span class="k">=</span> <span class="nc">NamedSet</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">,</span> <span class="s">"c"</span><span class="o">)</span>
+<span class="c1">// mySet: NamedSet[String] = totalmap.NamedSet$$anon$2@4e8fdce3
+</span><span class="k">import</span> <span class="nn">mySet.allValues</span>
 
 <span class="n">implicitly</span><span class="o">[</span><span class="kt">AllValues</span><span class="o">[</span><span class="kt">mySet.Elem</span><span class="o">]]</span>
-<span class="c1">// res7: AllValues[mySet.Elem] = AllValues(a,b,c)</span>
-
-<span class="k">val</span> <span class="nv">cfg</span> <span class="k">=</span> <span class="nv">ConfigFactory</span><span class="o">.</span><span class="py">parseString</span><span class="o">(</span>
+<span class="c1">// res7: AllValues[mySet.Elem] = AllValues(a,b,c)
+</span>
+<span class="k">val</span> <span class="n">cfg</span> <span class="k">=</span> <span class="nc">ConfigFactory</span><span class="o">.</span><span class="n">parseString</span><span class="o">(</span>
     <span class="s">"""
     |a = foo
     |b = bar
     |c = baz
-    """</span><span class="o">.</span><span class="py">stripMargin</span>
+    """</span><span class="o">.</span><span class="n">stripMargin</span>
 <span class="o">)</span>
-<span class="c1">// cfg: com.typesafe.config.Config = Config(SimpleConfigObject({"a":"foo","b":"bar","c":"baz"}))</span>
-
-<span class="k">val</span> <span class="nv">result</span> <span class="k">=</span> <span class="nv">pureconfig</span><span class="o">.</span><span class="py">loadConfig</span><span class="o">[</span><span class="kt">TotalMap</span><span class="o">[</span><span class="kt">mySet.Elem</span>, <span class="kt">String</span><span class="o">]](</span><span class="n">cfg</span><span class="o">)</span>
-<span class="c1">// result: ConfigReader.Result[TotalMap[mySet.Elem, String]] = Right(</span>
-<span class="c1">//   TotalMap(b -&gt; bar,a -&gt; foo,c -&gt; baz)</span>
-<span class="c1">// )</span>
-</code></pre></div></div>
+<span class="c1">// cfg: com.typesafe.config.Config = Config(SimpleConfigObject({"a":"foo","b":"bar","c":"baz"}))
+</span>
+<span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="n">pureconfig</span><span class="o">.</span><span class="n">loadConfig</span><span class="o">[</span><span class="kt">TotalMap</span><span class="o">[</span><span class="kt">mySet.Elem</span>, <span class="kt">String</span><span class="o">]](</span><span class="n">cfg</span><span class="o">)</span>
+<span class="c1">// result: ConfigReader.Result[TotalMap[mySet.Elem, String]] = Right(
+//   TotalMap(b -&gt; bar,a -&gt; foo,c -&gt; baz)
+// )
+</span></code></pre>
+</div>
 
 </div></div></section></main><footer id="site-footer"><div class="container"><div class="row"><p>TotalMap is designed and developed by <a href="" target="_blank" rel="noopener noreferrer">Wojtek Pituła</a></p></div><div class="row"><div><p>Website built with <a href="https://47degrees.github.io/sbt-microsites/" target="_blank" rel="noopener noreferrer">sbt-microsites</a> - © 2019 <a href="https://www.47deg.com/" target="_blank" rel="noopener noreferrer">47 Degrees</a></p></div></div></div></footer><script src="/total-map/highlight/highlight.pack.js"></script><script>
 // For all code blocks, copy the language from the containing div
