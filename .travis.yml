@@ -1,6 +1,6 @@
 language: scala
 jdk:
-- oraclejdk8
+- oraclejdk14
 before_install:
 - export PATH=${PATH}:./vendor/bundle
 - openssl aes-256-cbc -K $encrypted_685c161ef15d_key -iv $encrypted_685c161ef15d_iv -in secring.asc.enc -out secring.asc -d
